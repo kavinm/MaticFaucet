@@ -28,7 +28,7 @@ contract KPMGFaucet is Ownable {
     function requestTokens(address payable _requestor) public payable {
         //perform a few checks to make sure function can execute
         require(
-            block.timestamp > lockTime[msg.sender],
+            block.timestamp > lockTime[_requestor],
             "lock time has not expired. Please try again later"
         );
         require(
@@ -40,6 +40,6 @@ contract KPMGFaucet is Ownable {
         _requestor.transfer(amountAllowed);
 
         //updates locktime 1 day from now
-        lockTime[msg.sender] = block.timestamp + 1 days;
+        lockTime[_requestor] = block.timestamp + 1 days;
     }
 }
